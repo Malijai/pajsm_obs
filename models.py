@@ -192,9 +192,12 @@ class Echecmotifs(models.Model):
     class Meta:
         ordering = ['description']
 
+    def __str__(self):
+        return '%s' % self.description
+
 
 class Public(models.Model):
-    description = models.CharField(max_length=100, verbose_name="Causes d'échec")
+    description = models.CharField(max_length=100, verbose_name="Type d'informations pouvant être rendues publiques")
 
     class Meta:
         ordering = ['description']
@@ -233,7 +236,7 @@ class Paj(models.Model):
     telresponsable = models.CharField(max_length=250,verbose_name="2) Tel du responsable du programme", blank=True, null=True)
     titreresponsable = models.CharField(max_length=250,verbose_name="2) Titre ou occupation du responsable du programme", blank=True, null=True)
     confidentiel = models.BooleanField(verbose_name="* Cocher si ces informations sont confidentielles")
-    public = models.ManyToManyField(Public, verbose_name="* Autorisation à rendre public les coordonnées de la personne responsable (sur le site Web de l’Osbervatoire ?)")
+    public = models.ManyToManyField(Public, default='1', verbose_name="* Autorisation à rendre public les coordonnées de la personne responsable (sur le site Web de l’Osbervatoire ?)")
     nomrepondant = models.CharField(max_length=250,verbose_name="Nom du répondant a questionnaire", blank=True, null=True)
     courrielrepondant = models.CharField(max_length=250,verbose_name="Courriel du répondant a questionnaire", blank=True, null=True)
     telrepondant = models.CharField(max_length=250,verbose_name="Tel du répondant a questionnaire", blank=True, null=True)
@@ -284,11 +287,12 @@ class Paj(models.Model):
     caseload = models.CharField(max_length=250,verbose_name="P3- Nombre de dossier à charge de l’intervenant-pivot ou agent de liaison", blank=True, null=True)
     limiteparticipants = models.BooleanField(verbose_name="S1- Avez-vous une limite de participants?")
     limitenb = models.TextField(verbose_name="S1a- Si oui, à combien est établie la limite actuelle ?", blank=True, null=True)
-    partactif = models.CharField(max_length=250, default=0, verbose_name="S2- Combien avez-vous de participants actifs actuellement?", blank=True, null=True)
+    partactif = models.CharField(max_length=250, verbose_name="S2- Combien avez-vous de participants actifs actuellement?", blank=True, null=True)
     autrejur = models.BooleanField(verbose_name="S3- Recevez-vous des participants d’autres juridictions?")
     autrejurtext = models.TextField(verbose_name="S3a- Si oui: dans quelles circonstances?", blank=True, null=True)
     partmoyen = models.IntegerField(default=0, verbose_name="S4- En moyenne, combien de nouveaux participants intègrent le programme chaque mois?", blank=True, null=True)
     nbreussi = models.IntegerField(default=0, verbose_name="S5a- Combien de participants ont complété le programme dans la dernière année?", blank=True, null=True)
+    nbreussitxt = models.CharField(max_length=250, verbose_name="S5a-a- Détails sur Combien de participants ont complété le programme dans la dernière année?", blank=True, null=True)
     nbechoue = models.IntegerField(default=0, verbose_name="S5b- Combien de participants ont échoué au programme dans la dernière année?", blank=True, null=True)
     nbsuccesdebut = models.IntegerField(default=0, verbose_name="S5c- Nombre de participants ayant achevé le programme avec succès depuis son entrée en opération?", blank=True, null=True)
     nbechouedebut = models.IntegerField(default=0, verbose_name="S5d- Nombre de participants ayant échoué depuis l’entrée en opération du programme (incluant les retraits volontaires)", blank=True, null=True)
@@ -302,9 +306,10 @@ class Paj(models.Model):
     author = models.ForeignKey(User, blank=True, null=True, on_delete=models.DO_NOTHING)
     posted = models.DateTimeField(db_index=True, auto_now_add=True)
     reunionfreq = models.TextField(verbose_name="Fréquence des réunions de l’équipe", blank=True, null=True)
-    audiencefreq = models.CharField(max_length=250,verbose_name="Rféquence des audiences", blank=True, null=True)
+    audiencefreq = models.CharField(max_length=250,verbose_name="Fréquence des audiences", blank=True, null=True)
     #surveillance = models.ManyToManyField(Surveillances, default='1', verbose_name="Surveillance du programme")
     cadreref = models.FileField(upload_to='DocsReferences', verbose_name="Cadre de référence ou document constitutif (qui encadre le fonctionnement du PAJ)", help_text="ATTENTION PAS D'ACCENT DANS LE NOM DU FICHIER", blank=True, null=True)
+    equipenb = models.CharField(max_length=250,verbose_name="nombre de membres de l'équipe courante", blank=True, null=True)
 
     def __str__(self):
         return '%s' % self.nom

@@ -62,13 +62,13 @@ class PajAdmin(admin.ModelAdmin):
          {'classes': ['collapse'], 'fields': [('limiteparticipants', 'limitenb'),
                      ('partactif', 'caseload'),
                      ('autrejur','autrejurtext'),
-                     'partmoyen',('nbreussi', 'nbechoue'),
+                     'partmoyen',('nbreussi', 'nbreussitxt', 'nbechoue'),
                      ('nbsuccesdebut','nbechouedebut')]}),
         ('Évaluations et études',
          {'classes': ['collapse'],'fields': [('evaluation', 'evalquand', 'evalqui', 'evaltype', 'resume'),
                      ('evaluationfuture', 'evafuturedetail')]}),
         ('P- Équipe',
-                {'classes': ['collapse'], 'fields': ['reunionfreq', 'audiencefreq']}),
+                {'classes': ['collapse'], 'fields': ['reunionfreq', 'audiencefreq', 'equipenb']}),
     ]
 
     inlines = [EquipeInline, DocumentsInline, HistoriqueInline]
