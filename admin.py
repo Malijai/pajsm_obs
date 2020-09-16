@@ -35,9 +35,10 @@ class PajAdmin(admin.ModelAdmin):
                      ('nomresponsable', 'titreresponsable', 'formationresponsable'),
                      ('courrielresponsable', 'telresponsable'),
                      'nomrepondant', ('courrielrepondant', 'telrepondant'),
+                     ('territoire', 'municipalites','affiliation'),
                      ('confidentiel', 'public'),
-                     ('rapportannuel', 'tsmfile'),
-                     'cadreref',
+                     ('rapportannuel', 'tsmfile', 'rapportannuelpublic'),
+                     ('cadreref','cadrerefpublic'),
                      'debut', 'objectifs', 'clientele'
                      ]}),
         ('B- Référencement, sélection et admissibilité des participants',
